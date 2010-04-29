@@ -1,0 +1,45 @@
+PhotoFS is a read-only filesystem for iPhoto collections on the Mac
+
+It's useful for exploring your iPhoto library on other PCs or consumer
+electronic devices.  It's also useful for backing up your iPhoto
+library (even to non-macs while retaining its structure.)
+
+You can easily interfact with your iPhoto collection using the Finder
+and command line utilities like find and rsync.
+
+INSTALLATION
+
+Drag the iPhotoFS app to your Applications folder and launch it.
+After a few moments the iPhotoFS volume will be mounted and a finder
+window will open up with the volume selected.  You can then access the
+Volume from either the command line or the finder.
+
+EXAMPLE USAGE 
+
+# list my flagged photos
+$ ls /Volumes/iphotofs/Albums/Flagged/
+DSCF0472.JPG    IMG_0017.JPG    IMG_2031.JPG    MIT Group.JPG   P1210042.JPG
+
+# Export all of my albums to my PC
+$ cp -R /Volumes/iphotofs/Albums /Volumes/MyPC/
+
+# Show all photos taken in 2009-01
+$ ls  /Volumes/iphotofs/Dates/2009-01
+Installation
+
+You must first install MacFUSE (http://code.google.com/p/macfuse/downloads/list)
+
+Then simply run the iPhotoFS app and it will open up a new Finder window with the new filesystem selected.
+
+DETAILS
+
+The file system is a MacFuse user mode filesystem that reads iPhoto's AlbumData?.XML file.
+
+Here's the current folder organization:
+
+/Volumes/iphotofs/Albums contains subdirectories for all iPhoto albums.
+/Volumes/iphotofs/Rolls contains all rolls.
+/Volumes/iphotofs/Dates contains subdirectories for all Years/Months.
+
+The original filenames are preserved when possible. In the event of name collision between two different files, the names are uniquified by prepending the roll ID.
+
