@@ -82,6 +82,23 @@
 			// replace spaces with underscores for command line friendliness
 			name = [name stringByReplacingOccurrencesOfString: @" " withString: @"_"];
 		}
+		
+		/*
+		 * For Rolls, prepend with the date of the roll (for easy directory sorting)
+		 */
+		if ([iPhotoKey isEqualToString:@"List of Rolls"]){
+			NSNumber *dateInterval = [current objectForKey: @"RollDateAsTimerInterval"];
+			
+			if (dateInterval) {
+				NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate: [dateInterval intValue]];
+				
+				NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+				[dateFormat setDateFormat:@"yyy-MM-dd_"];
+				NSString *dateString = [dateFormat stringFromDate:date];
+			
+				name = [dateString stringByAppendingString:name];
+			}
+		}
 				
 		
 		/*if (stripHiChars) {
